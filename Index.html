@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Volaris × RCS — Powered by Flexi</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Barlow+Condensed:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --v-purple: #5C2D8E;
+    --v-purple-dark: #3D1A6E;
+    --v-purple-light: #7B4BB5;
+    --v-pink: #E91E8C;
+    --v-blue: #00AEEF;
+    --v-green: #39B54A;
+    --v-yellow: #FFD700;
+    --v-white: #FFFFFF;
+    --v-bg: #F4F0FA;
+    --v-text: #1A0A2E;
+    --v-muted: #7B6A8E;
+    --phone-dark: #0D0118;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--v-bg);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  /* ===== HERO HEADER ===== */
+  .hero {
+    width: 100%;
+    background: linear-gradient(135deg, var(--v-purple-dark) 0%, var(--v-purple) 50%, var(--v-purple-light) 100%);
+    padding: 28px 20px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(233,30,140,0.25) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(0,174,239,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  /* Pixel star logo */
+  .pixel-star {
+    display: grid;
+    grid-template-columns: repeat(5, 12px);
+    grid-template-rows: repeat(5, 12px);
+    gap: 2px;
+    margin: 0 auto 14px;
+    width: fit-content;
+  }
+  .px { width: 12px; height: 12px; border-radius: 2px; }
+  .px-0 { background: transparent; }
+  .px-p { background: #9B59B6; }
+  .px-pi { background: #E91E8C; }
+  .px-b { background: #00AEEF; }
+  .px-g { background: #39B54A; }
+  .px-w { background: #FFFFFF; }
+  .px-k { background: #1A0A2E; }
+
+  .hero-brand {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 38px;
+    font-weight: 800;
+    color: white;
+    letter-spacing: 1px;
+    text-transform: lowercase;
+    margin-bottom: 4px;
+  }
+  .hero-x {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .hero-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--v-yellow);
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+  .hero-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.5;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  /* RCS badge */
+  .rcs-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 20px;
+    padding: 5px 12px;
+    margin-top: 14px;
+    font-size: 11px;
+    color: white;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .rcs-dot { width: 7px; height: 7px; background: var(--v-green); border-radius: 50%; animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(1.3)} }
+
+  /* ===== PHONE CONTAINER ===== */
+  .phone-outer {
+    margin-top: -50px;
+    width: 100%;
+    max-width: 400px;
+    padding: 0 16px 32px;
+    position: relative;
+    z-index: 10;
+  }
+
+  .phone-frame {
+    background: var(--phone-dark);
+    border-radius: 38px;
+    padding: 10px;
+    box-shadow:
+      0 30px 80px rgba(92,45,142,0.4),
+      0 10px 30px rgba(0,0,0,0.3),
+      0 0 0 1px rgba(255,255,255,0.07),
+      inset 0 0 0 1px rgba(255,255,255,0.04);
+  }
+
+  .phone-screen {
+    background: #f0eff5;
+    border-radius: 30px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 620px;
+  }
+
+  /* Status bar */
+  .sbar {
+    background: var(--v-purple-dark);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 9px 18px 5px;
+    flex-shrink: 0;
+  }
+  .sbar-time { color: white; font-size: 12px; font-weight: 800; }
+  .sbar-icons { color: rgba(255,255,255,0.85); font-size: 10px; display:flex; gap:4px; align-items:center; }
+
+  /* Chat header */
+  .chat-head {
+    background: var(--v-purple);
+    padding: 9px 14px 13px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  .head-back { color: rgba(255,255,255,0.7); font-size: 18px; line-height: 1; }
+  .head-avatar {
+    width: 36px; height: 36px;
+    background: var(--v-yellow);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+  .head-info { flex: 1; }
+  .head-name { color: white; font-size: 14px; font-weight: 800; line-height: 1.2; }
+  .head-status { color: rgba(255,255,255,0.65); font-size: 10px; }
+  .head-verified {
+    background: var(--v-green);
+    color: white;
+    font-size: 8px; font-weight: 800;
+    padding: 2px 6px; border-radius: 8px;
+    letter-spacing: 0.5px;
+  }
+
+  /* Messages area */
+  .msgs {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    background: #EDE7F6;
+    background-image:
+      radial-gradient(circle at 15% 85%, rgba(92,45,142,0.06) 0%, transparent 40%),
+      radial-gradient(circle at 85% 15%, rgba(233,30,140,0.04) 0%, transparent 40%);
+  }
+  .msgs::-webkit-scrollbar { display: none; }
+
+  .date-sep {
+    align-self: center;
+    background: rgba(255,255,255,0.75);
+    color: #888;
+    font-size: 10px;
+    padding: 2px 10px;
+    border-radius: 8px;
+    font-weight: 600;
+  }
+
+  .msg { display: flex; flex-direction: column; }
+  .msg.in { align-self: flex-start; max-width: 88%; }
+  .msg.out { align-self: flex-end; max-width: 75%; }
+
+  .bubble {
+    padding: 8px 12px;
+    border-radius: 16px;
+    font-size: 12.5px;
+    line-height: 1.5;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  .msg.in .bubble {
+    background: white;
+    border-bottom-left-radius: 4px;
+    color: var(--v-text);
+  }
+  .msg.out .bubble {
+    background: #D1C4E9;
+    border-bottom-right-radius: 4px;
+    color: var(--v-text);
+  }
+  .bsender { font-size: 10px; font-weight: 800; color: var(--v-purple); margin-bottom: 2px; }
+  .btime { font-size: 9px; color: #aaa; text-align: right; margin-top: 2px; }
+  .msg.out .btime { color: #9575CD; }
+
+  /* Boarding pass card */
+  .bpass {
+    align-self: flex-start;
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(92,45,142,0.15);
+    max-width: 88%;
+  }
+  .bpass-top {
+    background: linear-gradient(135deg, var(--v-purple) 0%, var(--v-purple-light) 100%);
+    padding: 12px 14px;
+  }
+  .bpass-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .bpass-airline { color: rgba(255,255,255,0.7); font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+  .bpass-flight { color: white; font-size: 11px; font-weight: 800; }
+  .bpass-cities { display: flex; align-items: center; gap: 8px; }
+  .bpass-city { text-align: center; }
+  .bpass-code { font-family: 'Barlow Condensed'; font-size: 28px; font-weight: 800; color: white; line-height: 1; }
+  .bpass-name { font-size: 9px; color: rgba(255,255,255,0.7); font-weight: 600; }
+  .bpass-arrow { color: var(--v-yellow); font-size: 18px; }
+  .bpass-details { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-top: 8px; }
+  .bpass-field label { font-size: 8px; color: rgba(255,255,255,0.6); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; display: block; }
+  .bpass-field span { font-size: 12px; color: white; font-weight: 800; }
+  .bpass-bottom { padding: 10px 14px; }
+  .bpass-pax { font-size: 11px; font-weight: 800; color: var(--v-purple); margin-bottom: 6px; }
+  /* Barcode */
+  .barcode {
+    display: flex; gap: 2px; height: 28px; align-items: flex-end;
+    margin-bottom: 4px;
+  }
+  .bar {
+    background: var(--v-text);
+    border-radius: 1px;
+    height: 100%;
+  }
+  .bpass-code-num { font-size: 9px; color: #aaa; text-align: center; letter-spacing: 2px; }
+
+  /* Buttons */
+  .rcs-btns {
+    display: flex; flex-direction: column; gap: 5px;
+    align-self: flex-start;
+    max-width: 88%;
+    width: 100%;
+  }
+  .rcs-btn {
+    background: white;
+    border: 1.5px solid var(--v-purple);
+    color: var(--v-purple);
+    border-radius: 20px;
+    padding: 8px 14px;
+    font-size: 12px; font-weight: 700;
+    cursor: pointer;
+    font-family: 'Nunito';
+    text-align: center;
+    transition: all 0.15s;
+    width: 100%;
+  }
+  .rcs-btn:active, .rcs-btn:hover { background: var(--v-purple); color: white; }
+  .rcs-btn.pink { border-color: var(--v-pink); color: var(--v-pink); }
+  .rcs-btn.pink:hover { background: var(--v-pink); color: white; }
+  .rcs-btn.green { border-color: var(--v-green); color: var(--v-green); }
+  .rcs-btn.green:hover { background: var(--v-green); color: white; }
+  .btn-row { display: flex; gap: 5px; }
+  .btn-row .rcs-btn { flex: 1; padding: 7px 6px; font-size: 11px; }
+
+  /* Rich card */
+  .rcard {
+    align-self: flex-start;
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px rgba(92,45,142,0.12);
+    max-width: 88%;
+  }
+  .rcard-head {
+    padding: 10px 13px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .rcard-head.purple { background: linear-gradient(90deg, var(--v-purple) 0%, var(--v-purple-light) 100%); }
+  .rcard-head.pink { background: linear-gradient(90deg, var(--v-pink) 0%, #C2185B 100%); }
+  .rcard-head.blue { background: linear-gradient(90deg, var(--v-blue) 0%, #0288D1 100%); }
+  .rcard-head.green { background: linear-gradient(90deg, var(--v-green) 0%, #1B5E20 100%); }
+  .rcard-icon { font-size: 18px; }
+  .rcard-title { color: white; font-size: 13px; font-weight: 800; }
+  .rcard-body { padding: 10px 13px; }
+  .rcard-body p { font-size: 12px; color: var(--v-text); line-height: 1.5; }
+  .rcard-fields { margin-top: 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .rcard-field label { font-size: 8px; font-weight: 800; color: var(--v-muted); text-transform: uppercase; letter-spacing: 0.6px; display: block; }
+  .rcard-field span { font-size: 12px; font-weight: 700; color: var(--v-text); }
+  .rcard-field.full { grid-column: 1/-1; }
+  .rcard-btns { padding: 6px 13px 11px; display: flex; flex-direction: column; gap: 5px; }
+
+  /* Seat selector */
+  .seat-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 4px;
+    padding: 10px 13px;
+  }
+  .seat-label { font-size: 9px; text-align: center; color: var(--v-muted); font-weight: 700; }
+  .seat {
+    width: 100%; aspect-ratio: 1;
+    border-radius: 4px;
+    border: 1.5px solid #ddd;
+    background: white;
+    font-size: 9px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--v-muted);
+    transition: all 0.12s;
+  }
+  .seat.taken { background: #EDE7F6; color: #B39DDB; border-color: #D1C4E9; cursor: default; }
+  .seat.selected { background: var(--v-purple); color: white; border-color: var(--v-purple); }
+  .seat.extra { border-color: var(--v-pink); color: var(--v-pink); }
+  .seat.aisle { border-style: dashed; }
+  .seat-legend { display: flex; gap: 10px; padding: 0 13px 10px; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 4px; font-size: 9px; color: var(--v-muted); }
+  .legend-dot { width: 10px; height: 10px; border-radius: 2px; border: 1.5px solid; }
+
+  /* Alert card */
+  .alert-card {
+    align-self: flex-start;
+    max-width: 88%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+  }
+  .alert-stripe {
+    height: 5px;
+  }
+  .alert-stripe.yellow { background: var(--v-yellow); }
+  .alert-stripe.red { background: #F44336; }
+  .alert-stripe.green { background: var(--v-green); }
+  .alert-body {
+    background: white;
+    padding: 10px 13px;
+  }
+  .alert-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .alert-icon { font-size: 20px; }
+  .alert-title { font-size: 12px; font-weight: 800; color: var(--v-text); }
+  .alert-text { font-size: 11px; color: var(--v-muted); line-height: 1.4; }
+  .alert-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px; font-weight: 700;
+    margin-top: 6px;
+  }
+  .tag-yellow { background: #FFF9C4; color: #F57F17; }
+  .tag-red { background: #FFEBEE; color: #C62828; }
+  .tag-green { background: #E8F5E9; color: #1B5E20; }
+
+  /* Typing */
+  .typing-dots { display: flex; gap: 4px; padding: 9px 13px; background: white; border-radius: 14px; border-bottom-left-radius: 4px; align-self: flex-start; }
+  .typing-dots span { width: 7px; height: 7px; background: var(--v-purple-light); border-radius: 50%; animation: tdot 1.2s infinite; }
+  .typing-dots span:nth-child(2) { animation-delay: .2s; }
+  .typing-dots span:nth-child(3) { animation-delay: .4s; }
+  @keyframes tdot { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-6px)} }
+
+  /* Input */
+  .chat-input {
+    background: #ede7f6;
+    padding: 8px 10px;
+    display: flex; align-items: center; gap: 6px;
+    border-top: 1px solid #d1c4e9;
+    flex-shrink: 0;
+  }
+  .cinput {
+    flex: 1; background: white; border-radius: 20px;
+    padding: 7px 12px; font-size: 12px; color: #aaa;
+    border: none; outline: none; font-family: 'Nunito';
+  }
+  .csend {
+    width: 34px; height: 34px;
+    background: var(--v-purple);
+    border-radius: 50%; border: none;
+    color: white; font-size: 14px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* ===== BOTTOM SECTION ===== */
+  .bottom-section {
+    width: 100%;
+    max-width: 400px;
+    padding: 0 16px 40px;
+  }
+
+  /* Progress steps */
+  .progress-steps {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 4px;
+    position: relative;
+  }
+  .progress-steps::before {
+    content: '';
+    position: absolute;
+    top: 14px; left: 18px; right: 18px;
+    height: 2px;
+    background: #D1C4E9;
+    z-index: 0;
+  }
+  .progress-fill {
+    position: absolute;
+    top: 14px; left: 18px;
+    height: 2px;
+    background: var(--v-purple);
+    z-index: 1;
+    transition: width 0.5s ease;
+  }
+  .pstep {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    position: relative; z-index: 2; cursor: pointer;
+    flex: 1;
+  }
+  .pstep-dot {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 2px solid #D1C4E9;
+    background: var(--v-bg);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    color: var(--v-muted);
+    font-weight: 800;
+    transition: all 0.3s;
+  }
+  .pstep.done .pstep-dot { background: var(--v-purple); border-color: var(--v-purple); color: white; }
+  .pstep.active .pstep-dot { background: var(--v-pink); border-color: var(--v-pink); color: white; box-shadow: 0 0 0 4px rgba(233,30,140,0.2); }
+  .pstep-label { font-size: 8px; color: var(--v-muted); font-weight: 700; text-align: center; line-height: 1.2; }
+  .pstep.active .pstep-label { color: var(--v-purple); font-weight: 800; }
+
+  /* Control buttons */
+  .ctrl-row { display: flex; gap: 10px; margin-bottom: 16px; }
+  .ctrl-btn {
+    flex: 1;
+    padding: 13px;
+    border-radius: 14px;
+    border: none;
+    font-family: 'Nunito';
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.18s;
+    letter-spacing: 0.3px;
+  }
+  .ctrl-btn.next { background: var(--v-purple); color: white; }
+  .ctrl-btn.next:active { background: var(--v-purple-dark); transform: scale(0.98); }
+  .ctrl-btn.reset { background: rgba(92,45,142,0.1); color: var(--v-purple); }
+
+  /* Info box */
+  .info-box {
+    background: white;
+    border-radius: 14px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(92,45,142,0.08);
+    margin-bottom: 14px;
+  }
+  .info-title { font-size: 10px; font-weight: 800; color: var(--v-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+  .info-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; font-size: 12px; }
+  .info-ic { font-size: 14px; }
+  .info-label { color: var(--v-muted); flex: 1; }
+  .info-val { color: var(--v-purple); font-weight: 800; }
+  .channel-tag {
+    display: flex; align-items: center; gap: 6px;
+    background: linear-gradient(90deg, var(--v-purple) 0%, var(--v-purple-light) 100%);
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-top: 10px;
+  }
+  .channel-tag span { color: white; font-size: 11px; font-weight: 700; }
+
+  /* Powered by */
+  .powered {
+    text-align: center;
+    font-size: 11px;
+    color: var(--v-muted);
+    margin-top: 8px;
+    padding-bottom: 10px;
+  }
+  .powered strong { color: var(--v-purple); }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <!-- Pixel star -->
+  <div class="pixel-star">
+    <div class="px px-0"></div><div class="px px-b"></div><div class="px px-w"></div><div class="px px-b"></div><div class="px px-0"></div>
+    <div class="px px-g"></div><div class="px px-pi"></div><div class="px px-p"></div><div class="px px-pi"></div><div class="px px-g"></div>
+    <div class="px px-w"></div><div class="px px-p"></div><div class="px px-k"></div><div class="px px-p"></div><div class="px px-w"></div>
+    <div class="px px-g"></div><div class="px px-pi"></div><div class="px px-p"></div><div class="px px-pi"></div><div class="px px-g"></div>
+    <div class="px px-0"></div><div class="px px-b"></div><div class="px px-w"></div><div class="px px-b"></div><div class="px px-0"></div>
+  </div>
+  <div class="hero-brand">volaris</div>
+  <div class="hero-x">✕ FLEXI RCS</div>
+  <div class="hero-title">The future of travel<br>starts in your SMS</div>
+  <p class="hero-sub">Check-in, boarding pass, flight changes, and upsell — all from the native text message. No app. No web.</p>
+  <div class="rcs-pill"><div class="rcs-dot"></div> RCS Business Messaging · Verified</div>
+</div>
+
+<!-- PHONE -->
+<div class="phone-outer">
+  <div class="phone-frame">
+    <div class="phone-screen">
+      <!-- Status -->
+      <div class="sbar">
+        <span class="sbar-time" id="clk">9:41</span>
+        <div class="sbar-icons">📶 5G 🔋</div>
+      </div>
+      <!-- Header -->
+      <div class="chat-head">
+        <div class="head-back">←</div>
+        <div class="head-avatar">✈️</div>
+        <div class="head-info">
+          <div class="head-name">Volaris <span class="head-verified">✓ VERIFICADO</span></div>
+          <div class="head-status">RCS Messaging · Online now</div>
+        </div>
+      </div>
+      <!-- Messages -->
+      <div class="msgs" id="msgs">
+        <div class="date-sep">Today · Mar 2026</div>
+      </div>
+      <!-- Input -->
+      <div class="chat-input">
+        <input class="cinput" type="text" placeholder="Automatic RCS reply…" readonly>
+        <button class="csend">➤</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM -->
+<div class="bottom-section">
+
+  <!-- Progress -->
+  <div class="progress-steps" id="progressSteps">
+    <div class="progress-fill" id="progressFill" style="width:0%"></div>
+    <div class="pstep" data-i="0" onclick="jumpTo(0)">
+      <div class="pstep-dot">✈</div>
+      <div class="pstep-label">Check-in</div>
+    </div>
+    <div class="pstep" data-i="1" onclick="jumpTo(1)">
+      <div class="pstep-dot">🎫</div>
+      <div class="pstep-label">Boarding<br>Pass</div>
+    </div>
+    <div class="pstep" data-i="2" onclick="jumpTo(2)">
+      <div class="pstep-dot">💺</div>
+      <div class="pstep-label">Seat<br>Upgrade</div>
+    </div>
+    <div class="pstep" data-i="3" onclick="jumpTo(3)">
+      <div class="pstep-dot">🔔</div>
+      <div class="pstep-label">Flight<br>Alert</div>
+    </div>
+    <div class="pstep" data-i="4" onclick="jumpTo(4)">
+      <div class="pstep-dot">↩</div>
+      <div class="pstep-label">Flight<br>Change</div>
+    </div>
+    <div class="pstep" data-i="5" onclick="jumpTo(5)">
+      <div class="pstep-dot">✅</div>
+      <div class="pstep-label">Confirmed</div>
+    </div>
+  </div>
+
+  <div class="ctrl-row">
+    <button class="ctrl-btn next" onclick="nextStep()">▶ Next Step</button>
+    <button class="ctrl-btn reset" onclick="resetDemo()">↺ Restart</button>
+  </div>
+
+  <div class="info-box">
+    <div class="info-title">Active Passenger</div>
+    <div class="info-row"><span class="info-ic">👤</span><span class="info-label">Name</span><span class="info-val">Carlos Mendoza</span></div>
+    <div class="info-row"><span class="info-ic">✈️</span><span class="info-label">Vuelo</span><span class="info-val">Y4 842 · GDL→LAX</span></div>
+    <div class="info-row"><span class="info-ic">📅</span><span class="info-label">Fecha</span><span class="info-val">28 Mar · 06:50 AM</span></div>
+    <div class="info-row"><span class="info-ic">💺</span><span class="info-label">Seat</span><span class="info-val" id="seatVal">—</span></div>
+    <div class="channel-tag">
+      <span>📡</span>
+      <span>RCS Channel · Powered by Flexi</span>
+    </div>
+  </div>
+
+  <div class="powered">Demo by <strong>Flexi</strong> · RCS Business Messaging</div>
+</div>
+
+<script>
+// Barcode generator
+function makeBarcode() {
+  let h = '';
+  const widths = [2,1,3,1,2,1,1,2,3,1,2,1,1,3,2,1,1,2,1,3,2,1,1,2,1,2,3,1];
+  widths.forEach((w,i) => {
+    const ht = 60 + Math.random()*40;
+    h += `<div class="bar" style="width:${w*2}px;height:${ht}%"></div>`;
+  });
+  return h;
+}
+
+// Steps definition
+const steps = [
+  // 0: Check-in
+  { pi: 0, msgs: [
+    { t:'in', text:'✈️ Hi Carlos! Your flight <b>Y4 842</b> to Los Angeles departs tomorrow at <b>6:50 AM</b>.<br><br>Ready to check in?' },
+    { t:'btns', btns:['✅ Check in now', '⏰ Remind me later', 'ℹ️ Flight details'] }
+  ]},
+  // 1: Boarding pass
+  { pi: 1, msgs: [
+    { t:'out', text:'✅ Check in now' },
+    { t:'in', text:'Perfect! Check-in complete. 🎉 Here is your digital boarding pass:' },
+    { t:'bpass' },
+    { t:'btns', btns:['💺 Upgrade my seat', '🧳 Add a bag', '📤 Share boarding pass'] }
+  ]},
+  // 2: Upsell seat
+  { pi: 2, msgs: [
+    { t:'out', text:'💺 Upgrade my seat' },
+    { t:'rcard', hc:'pink', icon:'💺', title:'Upgrade Your Seat', body:'Select your preferred seat. Pink-bordered seats are <b>Plus</b> with extra legroom.', seat:true,
+      btns:['✅ Confirm seat 12A — $299 MXN', '⏭ Skip upgrade'] }
+  ]},
+  // 3: Flight alert
+  { pi: 3, msgs: [
+    { t:'out', text:'⏭ Skip upgrade' },
+    { t:'alert', type:'yellow', icon:'⚠️', title:'Flight Update', text:'Your flight Y4 842 has a 25-minute delay. New departure: <b>7:15 AM</b> from gate <b>D12</b>.', tag:'tag-yellow', tagTxt:'⏱ Delay: 25 min' },
+    { t:'btns', btns:['🔔 Enable real-time alerts', '🗺️ Airport map', '📞 Speak with agent'] }
+  ]},
+  // 4: Flight change options
+  { pi: 4, msgs: [
+    { t:'out', text:'🔔 Enable real-time alerts' },
+    { t:'in', text:'✅ Alerts enabled. We will notify you of any flight changes right here.' },
+    { t:'in', text:'We noticed your flight has a delay. Would you like to switch to an earlier or later flight at no extra cost?' },
+    { t:'rcard', hc:'blue', icon:'🔄', title:'Available Flights — Same Route', body:'Choose an alternative flight. No change fees apply.', fields:[
+      {l:'Option 1 — Earlier', v:'Y4 810 · 4:20 AM · Gate B04'},
+      {l:'Option 2 — Later', v:'Y4 856 · 10:00 AM · Gate C11'},
+    ], btns:['✈️ Switch to 4:20 AM', '🕙 Switch to 10:00 AM', '✅ Keep my current flight'] }
+  ]},
+  // 5: Flight change confirmed
+  { pi: 5, msgs: [
+    { t:'out', text:'✈️ Switch to 4:20 AM' },
+    { t:'in', text:'Done! Your flight has been changed. No fees were charged.' },
+    { t:'rcard', hc:'green', icon:'✅', title:'Flight Change Confirmed', body:'Your new boarding pass has been issued and is ready to use.', fields:[
+      {l:'New Flight', v:'Y4 810 · GDL → LAX'},
+      {l:'New Departure', v:'4:20 AM · Mar 28'},
+      {l:'Gate', v:'B04'},
+      {l:'Seat', v:'15C (unchanged)'},
+    ], btns:['🎫 View new boarding pass', '📲 Share updated itinerary'] }
+  ]},
+];
+
+let cur = -1, busy = false, selectedSeat = null;
+
+function gtime() {
+  const d = new Date();
+  return d.getHours()+':'+String(d.getMinutes()).padStart(2,'0');
+}
+
+function updateProgress(pi) {
+  const steps2 = document.querySelectorAll('.pstep');
+  steps2.forEach((s, i) => {
+    s.className = 'pstep';
+    if(i < pi) s.classList.add('done');
+    else if(i === pi) s.classList.add('active');
+  });
+  const pct = pi <= 0 ? 0 : (pi / (steps2.length-1)) * 100;
+  document.getElementById('progressFill').style.width = pct+'%';
+}
+
+async function sleep(ms) { return new Promise(r=>setTimeout(r,ms)); }
+
+async function addMsg(data) {
+  const c = document.getElementById('msgs');
+
+  if(data.t === 'in') {
+    const d = document.createElement('div');
+    d.className = 'msg in';
+    d.innerHTML = `<div class="bubble"><div class="bsender">Volaris</div>${data.text}<div class="btime">${gtime()}</div></div>`;
+    c.appendChild(d);
+  } else if(data.t === 'out') {
+    const d = document.createElement('div');
+    d.className = 'msg out';
+    d.innerHTML = `<div class="bubble">${data.text}<div class="btime">${gtime()} ✓✓</div></div>`;
+    c.appendChild(d);
+  } else if(data.t === 'btns') {
+    const w = document.createElement('div');
+    w.className = 'rcs-btns';
+    data.btns.forEach(b => {
+      const btn = document.createElement('button');
+      btn.className = 'rcs-btn';
+      btn.innerHTML = b;
+      btn.onclick = () => nextStep();
+      w.appendChild(btn);
+    });
+    c.appendChild(w);
+  } else if(data.t === 'bpass') {
+    const bp = document.createElement('div');
+    bp.className = 'bpass';
+    bp.innerHTML = `
+      <div class="bpass-top">
+        <div class="bpass-row">
+          <span class="bpass-airline">Volaris · Y4 842</span>
+          <span class="bpass-flight">ECONOMY</span>
+        </div>
+        <div class="bpass-cities">
+          <div class="bpass-city"><div class="bpass-code">GDL</div><div class="bpass-name">Guadalajara</div></div>
+          <div class="bpass-arrow">✈</div>
+          <div class="bpass-city"><div class="bpass-code">LAX</div><div class="bpass-name">Los Angeles</div></div>
+        </div>
+        <div class="bpass-details">
+          <div class="bpass-field"><label>Fecha</label><span>28 Mar</span></div>
+          <div class="bpass-field"><label>Sale</label><span>06:50</span></div>
+          <div class="bpass-field"><label>Puerta</label><span>D12</span></div>
+        </div>
+      </div>
+      <div class="bpass-bottom">
+        <div class="bpass-pax">Carlos Mendoza · Seat 15C</div>
+        <div class="barcode">${makeBarcode()}</div>
+        <div class="bpass-code-num">Y4842 · 2803 · GDL LAX · 15C</div>
+      </div>`;
+    c.appendChild(bp);
+    document.getElementById('seatVal').textContent = '15C — Economy';
+  } else if(data.t === 'rcard') {
+    const card = document.createElement('div');
+    card.className = 'rcard';
+    let flds = '';
+    if(data.fields) data.fields.forEach(f=>{flds+=`<div class="rcard-field"><label>${f.l}</label><span>${f.v}</span></div>`;});
+    let seatHtml = '';
+    if(data.seat) {
+      const seatData = [
+        {n:'10A',t:'extra'},{n:'10B',t:'extra'},{n:'',t:'aisle'},{n:'10C',t:'extra'},{n:'10D',t:'extra'},{n:'',t:'aisle'},
+        {n:'11A',t:'taken'},{n:'11B',t:''},{n:'',t:'aisle'},{n:'11C',t:'taken'},{n:'11D',t:''},{n:'',t:'aisle'},
+        {n:'12A',t:''},{n:'12B',t:'taken'},{n:'',t:'aisle'},{n:'12C',t:''},{n:'12D',t:'taken'},{n:'',t:'aisle'},
+        {n:'13A',t:'taken'},{n:'13B',t:'taken'},{n:'',t:'aisle'},{n:'13C',t:''},{n:'13D',t:''},{n:'',t:'aisle'},
+      ];
+      seatHtml = `<div class="seat-grid">`;
+      seatData.forEach(s=>{
+        if(!s.n){seatHtml+=`<div></div>`;return;}
+        seatHtml+=`<div class="seat ${s.t}" onclick="selectSeat(this,'${s.n}')" data-seat="${s.n}">${s.n}</div>`;
+      });
+      seatHtml += `</div><div class="seat-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#EDE7F6;border-color:#D1C4E9"></div>Taken</div>
+        <div class="legend-item"><div class="legend-dot" style="background:white;border-color:#ddd"></div>Available</div>
+        <div class="legend-item"><div class="legend-dot" style="background:white;border-color:#E91E8C"></div>Plus</div>
+      </div>`;
+    }
+    let btnsHtml = '';
+    if(data.btns) {
+      btnsHtml = '<div class="rcard-btns">';
+      data.btns.forEach((b,i)=>{
+        btnsHtml+=`<button class="rcs-btn${i===0?' pink':''}" onclick="nextStep()">${b}</button>`;
+      });
+      btnsHtml += '</div>';
+    }
+    card.innerHTML = `
+      <div class="rcard-head ${data.hc}"><span class="rcard-icon">${data.icon}</span><span class="rcard-title">${data.title}</span></div>
+      <div class="rcard-body"><p>${data.body}</p>${flds?`<div class="rcard-fields">${flds}</div>`:''}</div>
+      ${seatHtml}${btnsHtml}`;
+    c.appendChild(card);
+  } else if(data.t === 'alert') {
+    const a = document.createElement('div');
+    a.className = 'alert-card';
+    a.innerHTML = `
+      <div class="alert-stripe ${data.type}"></div>
+      <div class="alert-body">
+        <div class="alert-row"><span class="alert-icon">${data.icon}</span><span class="alert-title">${data.title}</span></div>
+        <div class="alert-text">${data.text}</div>
+        <span class="alert-tag ${data.tag}">${data.tagTxt}</span>
+      </div>`;
+    c.appendChild(a);
+  }
+  c.scrollTop = c.scrollHeight;
+}
+
+function selectSeat(el, name) {
+  if(el.classList.contains('taken')) return;
+  document.querySelectorAll('.seat.selected').forEach(s=>s.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedSeat = name;
+  document.getElementById('seatVal').textContent = name+' — Plus (+$299 MXN)';
+}
+
+async function showTyping(ms=750) {
+  const c = document.getElementById('msgs');
+  const t = document.createElement('div');
+  t.className = 'typing-dots'; t.id='td';
+  t.innerHTML='<span></span><span></span><span></span>';
+  c.appendChild(t); c.scrollTop=c.scrollHeight;
+  await sleep(ms);
+  t.remove();
+}
+
+async function nextStep() {
+  if(busy || cur >= steps.length-1) return;
+  busy = true; cur++;
+  const s = steps[cur];
+  updateProgress(s.pi);
+  for(const m of s.msgs) {
+    if(m.t==='in'||m.t==='rcard'||m.t==='bpass'||m.t==='alert') await showTyping(600+Math.random()*300);
+    await addMsg(m);
+    await sleep(100);
+  }
+  busy = false;
+}
+
+async function jumpTo(i) {
+  resetDemo();
+  await sleep(50);
+  for(let s=0; s<=i; s++) {
+    cur=s;
+    updateProgress(steps[s].pi);
+    for(const m of steps[s].msgs) await addMsg(m);
+  }
+}
+
+function resetDemo() {
+  cur=-1; selectedSeat=null; busy=false;
+  document.getElementById('msgs').innerHTML=`<div class="date-sep">Today · Mar 2026</div>`;
+  document.getElementById('seatVal').textContent='—';
+  updateProgress(-1);
+  document.getElementById('progressFill').style.width='0%';
+}
+
+setInterval(()=>{document.getElementById('clk').textContent=gtime();},1000);
+document.getElementById('clk').textContent=gtime();
+setTimeout(()=>nextStep(), 900);
+</script>
+</body>
+</html>
